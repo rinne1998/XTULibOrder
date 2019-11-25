@@ -14,6 +14,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Noesis.Javascript;
+using Ivony.Html;
+using Ivony.Html.Parser;
 
 namespace XTULibOrder
 {
@@ -23,6 +25,7 @@ namespace XTULibOrder
 
         string cookiesA= "";
         string Code;
+        string[] L10837 = { "10,15", "10,16", "12,15", "14,16", "14,17", "14,18", "16,14", "16,15", "18,14", "18,18", "20,17", "24,16", "26,16", "28,18", "30,15", "30,18", "32,17", "34,16", "34,18", "36,15", "36,16", "36,18", "38,15", "38,16", "38,18", "40,15", "12,16", "14,14", "14,15", "16,16", "16,17", "16,18", "18,15", "18,16", "18,17", "20,15", "20,16", "20,18", "22,15", "22,16", "22,17", "22,18", "24,15", "24,17", "24,18", "26,15", "26,17", "26,18", "28,15", "28,16", "28,17", "30,16", "30,17", "32,15", "32,16", "32,18", "34,15", "34,17", "36,17", "38,14", "38,17", "40,14", "40,16", "40,17", "40,18" };
         string[] L11403 ={"10,15", "10,16", "12,15", "12,16", "14,14", "14,15", "14,16", "14,17", "14,18", "16,14", "16,15", "16,16", "16,17", "16,18", "18,14", "18,15", "18,16", "18,17", "18,18", "20,14", "20,15", "20,16", "20,17", "20,18", "22,14", "22,15", "22,16", "22,17", "22,18", "24,14", "24,15", "24,16", "24,17", "24,18", "26,14", "26,15", "26,16", "26,17", "26,18", "28,14", "28,15", "28,16", "28,17", "28,18", "30,14", "30,15", "30,16", "30,17", "30,18", "32,14", "32,15", "32,16", "32,17", "32,18", "34,14", "34,15", "34,16", "34,17", "34,18", "36,14", "36,15", "36,16", "36,17", "36,18", "38,14", "38,15", "38,16", "38,17", "38,18", "40,14", "40,15", "40,16", "40,17", "40,18" };
         string[] L10550 = { "9,14", "9,15", "11,14", "11,15", "13,14", "13,15", "15,14", "15,15", "17,14", "17,15", "19,14", "19,15", "21,14", "21,15", "23,14", "23,15", "25,14", "25,15", "27,14", "27,15", "29,14", "29,15", "31,14", "31,15", "33,14", "33,15", "35,14", "35,15", "37,14", "37,15", "39,14", "39,15", "41,14", "41,15", "43,14", "43,15", "45,14", "45,15", "47,14", "47,15" };
         string[] L10557 ={"8,14", "8,15", "8,16", "10,14", "10,15", "10,16", "12,14", "12,15", "12,16", "14,14", "14,15", "14,16", "16,14", "16,15", "16,16", "18,14", "18,15", "18,16", "20,14", "20,15", "20,16", "22,14", "22,15", "22,16", "24,14", "24,15", "24,16", "26,14", "26,15", "26,16", "28,14", "28,15", "28,16", "30,14", "30,15", "30,16", "32,14", "32,15", "32,16", "34,14", "34,15", "34,16", "36,14", "36,15", "36,16", "38,14", "38,15", "38,16", "40,14", "40,15", "40,16", "42,14", "42,15", "42,16", "44,14", "44,15", "44,16", "46,14", "46,15", "46,16", "48,14", "48,15", "48,16", "50,14", "50,15", "50,16", "52,14", "52,15", "52,16", "54,14", "54,15", "54,16" };
@@ -55,6 +58,20 @@ namespace XTULibOrder
                 try
                 {
                     textBox5.AppendText(Get("https://wechat.laixuanzuo.com/index.php/reserve/get/libid=10564&" + GetCode() + "=" + item + "&yzm=", cookiesA));
+                }
+                catch
+                {
+                }
+            }
+
+        }
+        private void QL10837()
+        {
+            foreach (string item in L10837)
+            {
+                try
+                {
+                    textBox5.AppendText(Get("https://wechat.laixuanzuo.com/index.php/reserve/get/libid=10837&" + GetCode() + "=" + item + "&yzm=", cookiesA));
                 }
                 catch
                 {
@@ -228,6 +245,8 @@ namespace XTULibOrder
                 label7.Text = "Cookie已生成";
                 label7.ForeColor = System.Drawing.Color.Black;
                 MessageBox.Show("Success！");
+                checkBox2.Enabled = true;
+                checkBox2.Checked = true;
             }
             else {
                 MessageBox.Show("请填入ID！");
@@ -237,15 +256,16 @@ namespace XTULibOrder
         private void Timer1_Tick(object sender, EventArgs e)
         {
             string now = DateTime.Now.ToString("HH:mm:ss");
+            label9.Text = now;
             //设置固定时间要执行的事件
             switch (now)
             {
                 case "7:29:58":
                     Start();
                     break;
-                //case "16:01:40":
-                    //Start();
-                    //break;
+                case "13:59:59":
+                    QL10837();
+                    break;
             }
         }
 
@@ -262,6 +282,109 @@ namespace XTULibOrder
                 { }
             }
             //Get( "https://wechat.laixuanzuo.com/index.php/reserve/get/libid=10508&"+ GetCode() + "=" + "5,5" + "&yzm=",cookiesA);
+        }
+
+        private void Label6_Click(object sender, EventArgs e)
+        {
+            Form2 Form = new Form2();
+            Form.StartPosition = FormStartPosition.CenterParent;
+            Form.ShowDialog();
+
+        }
+
+        private void TextBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button4_Click_1(object sender, EventArgs e)
+        {
+            if (cookiesA != "")
+            {
+                Index();
+            }
+            else
+            {
+                MessageBox.Show("请先生成Cookie！");
+            }
+        }
+
+        public void Index()
+        {
+            try
+            {
+
+                string now = Convert.ToDateTime(GetNetDateTime()).ToString("HH:mm:ss");
+                textBox3.Clear();
+                string text1;
+                //需要给utf-8的编码，否则html是乱码。
+                IHtmlDocument source = new JumonyParser().Parse(Get("http://wechat.laixuanzuo.com/index.php/reserve/index.html?f=wechat", "Hm_lpvt_7838cef374eb966ae9ff502c68d6f098=" + GetTimeStamp(true) + "; Hm_lvt_7838cef374eb966ae9ff502c68d6f098=" + GetTimeStamp(true) + ";FROM_TYPE=weixin;wechatSESS_ID=" + textBox1.Text));
+                //IHtmlDocument source = new JumonyParser().LoadDocument("http://127.0.0.1:5500/a.html", System.Text.Encoding.GetEncoding("utf-8"));
+                var A = source.Find(".list-group-item-heading");
+                foreach (var i in A)
+                {
+                    text1 = i.InnerText().ToString();
+                    text1 = text1.Replace("\n", "   ");
+                    textBox3.AppendText(text1 + System.Environment.NewLine);
+                    //MessageBox.Show(i.InnerText().ToString());
+                }
+                textBox3.AppendText("刷新时间" + now + System.Environment.NewLine);
+            }
+            catch
+            {
+            }
+
+        }
+
+        private void CheckBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+            {
+                timer2.Enabled = true;
+            }
+            else
+            {
+                timer2.Enabled = false;
+            }
+
+        }
+        public string GetNetDateTime()
+        {
+            WebRequest request = null;
+            WebResponse response = null;
+            WebHeaderCollection headerCollection = null;
+            string datetime = string.Empty;
+            try
+            {
+                request = WebRequest.Create("https://www.baidu.com");
+                request.Timeout = 3000;
+                request.Credentials = CredentialCache.DefaultCredentials;
+                response = (WebResponse)request.GetResponse();
+                headerCollection = response.Headers;
+                foreach (var h in headerCollection.AllKeys)
+                { if (h == "Date") { datetime = headerCollection[h]; } }
+                return datetime;
+            }
+            catch (Exception) { return datetime; }
+            finally
+            {
+                if (request != null)
+                { request.Abort(); }
+                if (response != null)
+                { response.Close(); }
+                if (headerCollection != null)
+                { headerCollection.Clear(); }
+            }
+        }
+
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                Index();
+            }
+            catch {
+            }
         }
 
         private string GetCode()
@@ -298,6 +421,7 @@ namespace XTULibOrder
 
             // textBox5.AppendText(Get("http://wechat.laixuanzuo.com/index.php/reserve/index.html?f=wechat", "Hm_lpvt_7838cef374eb966ae9ff502c68d6f098=" + GetTimeStamp(true) + "; Hm_lvt_7838cef374eb966ae9ff502c68d6f098=" + GetTimeStamp(true) + ";FROM_TYPE=weixin;wechatSESS_ID="+ textBox1.Text));
             // cookiesA = "Hm_lpvt_7838cef374eb966ae9ff502c68d6f098=" + GetTimeStamp(true) + "; Hm_lvt_7838cef374eb966ae9ff502c68d6f098=" + GetTimeStamp(true) + ";FROM_TYPE=weixin;wechatSESS_ID=" + textBox1.Text;
+            ActiveControl = textBox1;
         }
 
         public static string GetTimeStamp(bool bflag)
@@ -440,9 +564,11 @@ namespace XTULibOrder
                 {
                     if (radioButton1.Checked == true)
                     {
-                        QL10501();
+                        //QL10501();
                         QL10662();
-                        QL10508();
+                        QL10669();
+                        
+                        //QL10508();
                         if (Regex.Matches(textBox5.Text, "成功").Count > 0)
                         {
                             MessageBox.Show("抢到啦!!");
@@ -455,9 +581,9 @@ namespace XTULibOrder
 
                     if (radioButton2.Checked == true)
                     {
-                        QL10494();
-                        QL10669();
                         QL10655();
+                        QL10634();
+
                         if (Regex.Matches(textBox5.Text, "成功").Count > 0)
                         {
                             MessageBox.Show("抢到啦!!");
@@ -471,7 +597,6 @@ namespace XTULibOrder
 
                     if (radioButton3.Checked == true)
                     {
-                        QL10634();
                         QL10564();
                         QL10557();
                         if (Regex.Matches(textBox5.Text, "成功").Count > 0)
@@ -489,7 +614,7 @@ namespace XTULibOrder
                     {
                         QL10550();
                         QL10487();
-                        QL10641();
+                        QL10837();
                         if (Regex.Matches(textBox5.Text, "成功").Count > 0)
                         {
                             MessageBox.Show("抢到啦!!");
@@ -503,8 +628,181 @@ namespace XTULibOrder
 
                     if (radioButton5.Checked == true)
                     {
+                        QL10641();
                         QL11403();
                         QL10648();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+
+
+
+                    if (radioButton15.Checked == true)
+                    {
+                        QL10837();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+
+                    if (radioButton12.Checked == true)
+                    {
+                        QL10550();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton8.Checked == true)
+                    {
+                        QL10557();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton14.Checked == true)
+                    {
+                        QL10564();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton9.Checked == true)
+                    {
+                        QL10487();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton11.Checked == true)
+                    {
+                        QL10634();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton16.Checked == true)
+                    {
+                        QL10655();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton10.Checked == true)
+                    {
+                        QL10494();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton13.Checked == true)
+                    {
+                        QL10641();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton6.Checked == true)
+                    {
+                        QL10501();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton7.Checked == true)
+                    {
+                        QL10669();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton17.Checked == true)
+                    {
+                        QL10662();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton18.Checked == true)
+                    {
+                        QL10648();
+                        if (Regex.Matches(textBox5.Text, "成功").Count > 0)
+                        {
+                            MessageBox.Show("抢到啦!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("糟糕，没有抢到座位！换一组再试试吧!");
+                        }
+                    }
+                    if (radioButton19.Checked == true)
+                    {
+                        QL10508();
                         if (Regex.Matches(textBox5.Text, "成功").Count > 0)
                         {
                             MessageBox.Show("抢到啦!!");
